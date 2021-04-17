@@ -1,6 +1,10 @@
 
 ### project env ###
 env/
+.idea/
+
+### auth info ###
+LeeYeohaeng_project/db_auth.cnf
 
 ### Django ###
 *.log
