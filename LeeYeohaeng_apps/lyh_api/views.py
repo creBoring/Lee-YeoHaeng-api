@@ -4,10 +4,11 @@ from rest_framework.response import Response
 
 from .models import Routes
 from .serializers import RoutesSerializer
+import json
 
 
+# Get route data Methods
 class RoutesGetView(APIView):
-    # Get and List Methods
     def get(self, request, id=None):
         if id:
             try:
@@ -21,9 +22,13 @@ class RoutesGetView(APIView):
         return Response(read_serializer.data)
 
 
+# Insert New route data Methods
 class RoutesPostView(APIView):
-    # Insert New routes Methods
     def post(self, request):
+        # convert routes datatype from dict to string
+        routes_json = json.dumps(request.data["routes"])
+        request.data["routes"] = routes_json
+
         create_serializer = RoutesSerializer(data=request.data)
         if not create_serializer.is_valid():
             return Response(create_serializer.errors, status=400)
