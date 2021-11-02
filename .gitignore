@@ -1,17 +1,2 @@
-
-### project env ###
-env/
-.idea/
-
-### auth info ###
-LeeYeohaeng_project/db_auth.cnf
-
-### Django ###
-*.log
-*.pot
-*.pyc
-__pycache__/
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
-media
+### modules ###
+node_modules/
