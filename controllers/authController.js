@@ -1,4 +1,4 @@
-const loginService = require('../services/loginService.js');
+const authService = require('../services/authService.js');
 
 const postLogin = async (req, res) => {
   const {user, password} = req.body;
@@ -7,7 +7,7 @@ const postLogin = async (req, res) => {
   // 소스코드 작성 필요
 
   try {
-    await loginService.login(user, password);
+    await authService.login(user, password);
     res.sendStatus(200)  // with session token...
 
   } catch(e) {

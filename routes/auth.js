@@ -1,0 +1,13 @@
+const express = require('express');
+const router = express.Router();
+
+const authController = require('../controllers/loginController');
+
+
+/* Login Logic */
+router.post('/login', authController.postLogin);
+// router.post('/register', authController.postRegister);
+// router.get('/pwReset',   authController.getPwReset);
+
+
+module.exports = router;
