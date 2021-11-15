@@ -1,4 +1,4 @@
-var mysql = require('mysql')
+const db = require('../config/db.config.js');
 
 const login = async (user, password) => {
 

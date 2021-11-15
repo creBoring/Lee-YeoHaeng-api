@@ -1,22 +1,61 @@
 const authService = require('../services/authService.js');
 
-const postLogin = async (req, res) => {
-  const {user, password} = req.body;
+
+/*
+* 로그인 기능
+* 입력인자: user(String), password(String)
+*/
+const postLogin = async (req, res, next) => {
+  console.log(req.body);
+  const {id, pw} = req.body;
+  let result = {};
 
   // Check id and pw are valid...
-  // 소스코드 작성 필요
+  if(!id || !pw) {
+    result.message = "올바른 ID, PW 정보가 입력되지 않았습니다"
+    res.status(400).send(result);
+    console.log(result.message);
 
-  try {
-    await authService.login(user, password);
-    res.sendStatus(200)  // with session token...
+  } else {
+    // Login Process ...
+    try {
+      const loginResult = await authService.login(id, pw);
+      if(loginResult.loginSuccess) {
+        res.session.sessionID = loginResult.userId;
+        res.sendStatus(200);
+      } else {
+        result.message = loginResult.message;
+        res.status(401).send(result);
+      }
 
-  } catch(e) {
-    console.log(e.message);
-    res.sendStatus(500)
 
+    } catch(e) {
+      console.log(e.message);
+      result.message = "예기치 못한 에러가 발생했습니다.";
+      res.status(400).send(result);
+    }
   }
 }
 
+/*
+* 회원가입 기능
+* 입력인자: user
+*/
+const postRegister = async (req, res) => {
+
+}
+
+
+/*
+* 테스트용
+* 입력인자: (없음)
+*/
+const getTest = async (req, res) => {
+  res.send("Hello Lee?")
+}
+
+
 module.exports = {
-  postLogin: postLogin
+  postLogin: postLogin,
+  getTest: getTest
 }
