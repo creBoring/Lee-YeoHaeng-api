@@ -1,5 +1,6 @@
 const express = require('express');
 const session = require('express-session');
+const cors = require('cors');
 const AWS = require('aws-sdk');
 
 const app = express();
@@ -10,6 +11,14 @@ const authRouter = require('./routes/auth');
 // express 옵션들
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+
+// cors
+app.use(cors({
+  origin: [
+    'https://lyh.creboring.com',
+    'http://localhost:8080' // for test
+  ]
+}))
 
 // session
 app.use(session({
