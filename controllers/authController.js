@@ -23,7 +23,7 @@ const postLogin = async (req, res, next) => {
       const loginResult = await authService.login(id, pw);
       console.log(loginResult);
       if(loginResult.loginSuccess) {
-        res.session.sessionID = loginResult.user.userId;
+        req.session.sessionID = loginResult.user.userId;
         res.sendStatus(200);
       } else {
         result.message = loginResult.message;
