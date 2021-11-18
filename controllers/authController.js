@@ -1,3 +1,5 @@
+/* 인증 관련 컨트롤러 */
+'use strict';
 const authService = require('../services/authService.js');
 
 
@@ -6,7 +8,6 @@ const authService = require('../services/authService.js');
 * 입력인자: user(String), password(String)
 */
 const postLogin = async (req, res, next) => {
-  console.log(req.body);
   const {id, pw} = req.body;
   let result = {};
 
@@ -20,8 +21,9 @@ const postLogin = async (req, res, next) => {
     // Login Process ...
     try {
       const loginResult = await authService.login(id, pw);
+      console.log(loginResult);
       if(loginResult.loginSuccess) {
-        res.session.sessionID = loginResult.userId;
+        res.session.sessionID = loginResult.user.userId;
         res.sendStatus(200);
       } else {
         result.message = loginResult.message;
