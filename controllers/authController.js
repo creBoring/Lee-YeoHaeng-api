@@ -8,28 +8,25 @@ const authService = require('../services/authService.js');
 * 입력인자: user(String), password(String)
 */
 const postLogin = async (req, res, next) => {
-  const {id, pw} = req.body;
+  const {userId, password} = req.body;
   let result = {};
 
   // Check id and pw are valid...
-  if(!id || !pw) {
+  if(!userId || !password) {
     result.message = "올바른 ID, PW 정보가 입력되지 않았습니다"
     res.status(400).send(result);
-    console.log(result.message);
 
+  // Login Process ...
   } else {
-    // Login Process ...
     try {
-      const loginResult = await authService.login(id, pw);
-      console.log(loginResult);
-      if(loginResult.loginSuccess) {
+      const loginResult = await authService.login(userId, password);
+      if(loginResult.isSuccess) {
         req.session.sessionID = loginResult.user.userId;
         res.sendStatus(200);
       } else {
         result.message = loginResult.message;
         res.status(401).send(result);
       }
-
 
     } catch(e) {
       console.log(e.message);
@@ -44,20 +41,29 @@ const postLogin = async (req, res, next) => {
 * 입력인자: user
 */
 const postRegister = async (req, res) => {
+  const data = req.body;
+  let result = {};
 
-}
+  // Register User Process ...
+  try {
+    const registerResult = await authService.register(data);
+    console.log(registerResult);
+    if(registerResult.isSuccess) {
+      res.sendStatus(200);
+    } else {
+      result.message = "회원가입에 실패했습니다.";
+      res.status(400).send(result);
+    }
 
-
-/*
-* 테스트용
-* 입력인자: (없음)
-*/
-const getTest = async (req, res) => {
-  res.send("Hello Lee?")
+  } catch(e) {
+    console.log(e.message);
+    result.message = "예기치 못한 에러가 발생했습니다.";
+    res.status(400).send(result);
+  }
 }
 
 
 module.exports = {
   postLogin: postLogin,
-  getTest: getTest
+  postRegister: postRegister
 }

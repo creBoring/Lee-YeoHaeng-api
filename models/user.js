@@ -9,6 +9,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     password: {
       field: 'password',
+      type: DataTypes.STRING(128),
+      allowNull: false
+    },
+    nickname: {
+      field: 'nickname',
       type: DataTypes.STRING(100),
       allowNull: false
     },
@@ -20,6 +25,11 @@ module.exports = (sequelize, DataTypes) => {
     userName: {
       field: 'user_name',
       type: DataTypes.STRING(100),
+      allowNull: false
+    },
+    salt: {
+      field: 'salt',
+      type: DataTypes.STRING(64),
       allowNull: false
     },
     createDate: {
