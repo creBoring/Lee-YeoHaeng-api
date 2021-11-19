@@ -3,9 +3,19 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "dependencies": {
-    "express": "~4.16.1"
+    "aws-sdk": "^2.1027.0",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "express": "~4.16.1",
+    "express-session": "^1.17.2",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
