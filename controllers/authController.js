@@ -21,7 +21,9 @@ const postLogin = async (req, res, next) => {
     try {
       const loginResult = await authService.login(userId, password);
       if(loginResult.isSuccess) {
-        req.session.sessionID = loginResult.user.userId;
+        req.session.is_logined = true;
+        req.session.userId = loginResult.user.userId;
+        req.session.save();
         res.sendStatus(200);
       } else {
         result.message = loginResult.message;

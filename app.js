@@ -23,6 +23,7 @@ app.use(cors({
 // session
 app.use(session({
   secret: 'l22Salt_!@#so$CutE',
+  secure: false, // for test
   resave: false,
   saveUninitialized: true
 }));
