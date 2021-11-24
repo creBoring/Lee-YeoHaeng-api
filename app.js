@@ -31,6 +31,12 @@ app.use(session({
 // router init
 app.use('/auth', authRouter);
 
+// for Load Balancer health check
+app.get('/health', (req, res) => {
+  res.status(200).send('Ok');
+});
+
+
 // API CALL NOT FOUND
 app.use((err, req, res, next) => {
   res.status(err.status || 500);
