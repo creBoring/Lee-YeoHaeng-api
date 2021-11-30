@@ -17,7 +17,8 @@ app.use(cors({
   origin: [
     'https://lyh.creboring.com',
     'http://localhost:8080' // for test
-  ]
+  ],
+  credentials: true
 }))
 
 // session
