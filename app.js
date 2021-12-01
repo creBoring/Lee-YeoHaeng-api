@@ -22,11 +22,18 @@ app.use(cors({
 }))
 
 // session
+app.set('trust proxy', 1) // trust first proxy
 app.use(session({
+  secure: true,
   secret: 'l22Salt_!@#so$CutE',
-  secure: false, // for test
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  cookie: {
+    HttpOnly: true,
+    maxAge: 24000 * 60 * 60,
+    secure: true,
+    sameSite: 'none'
+  }
 }));
 
 // router init
