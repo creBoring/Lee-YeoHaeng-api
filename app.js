@@ -22,14 +22,14 @@ app.use(cors({
 }))
 
 // session
-app.set('trust proxy', 2) // trust first proxy
+app.set('trust proxy', 2) // for reverse proxy (AWS ALB)
 app.use(session({
-  secure: true,
   secret: 'l22Salt_!@#so$CutE',
   resave: false,
   saveUninitialized: true,
   proxy: true,
   cookie: {
+    domain: '.creboring.com',
     HttpOnly: true,
     maxAge: 24000 * 60 * 60,
     secure: true,
