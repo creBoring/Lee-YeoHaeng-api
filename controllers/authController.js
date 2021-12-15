@@ -24,7 +24,10 @@ const postLogin = async (req, res, next) => {
         req.session.is_logined = true;
         req.session.userId = loginResult.user.userId;
         req.session.save();
-        res.sendStatus(200);
+
+        result.userId = loginResult.user.userId;
+        result.nickname = loginResult.user.nickname;
+        res.status(200).send(result);
       } else {
         result.message = loginResult.message;
         res.status(401).send(result);
