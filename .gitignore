@@ -1,2 +1,8 @@
 ### modules ###
 node_modules/
+
+### secret files ###
+config/db-config.json
+
+### IDE ###
+.idea/
