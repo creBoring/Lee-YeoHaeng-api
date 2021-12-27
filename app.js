@@ -3,6 +3,7 @@ const session = require('express-session');
 const cors = require('cors');
 
 const authRouter = require('./routes/auth');
+const projectRouter = require('./routes/project');
 // const utils = require('./utils');
 
 const app = express();
@@ -39,6 +40,7 @@ app.use(session({
 
 // router init
 app.use('/auth', authRouter);
+app.use('/project', projectRouter);
 
 // for Load Balancer health check
 app.get('/health', (req, res) => {

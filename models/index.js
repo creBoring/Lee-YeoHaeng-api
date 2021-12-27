@@ -13,8 +13,8 @@ db.sequelize = sequelize;
 
 // Table module init
 db.User = require('./user')(sequelize, Sequelize);
+db.Project = require('./project')(sequelize, Sequelize);
+db.Routes = require('./routes')(sequelize, Sequelize);
 // db.Place = require('./place')(sequelize, Sequelize);
-// db.Project = require('./project')(sequelize, Sequelize);
-// db.Routes = require('./routes')(sequelize, Sequelize);
 
 module.exports = db;
