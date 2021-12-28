@@ -1,13 +1,12 @@
 /* 프로젝트 관리 관련 컨트롤러 */
 'use strict';
 const projectService = require('../services/projectService.js');
-const {createProject} = require("../services/projectService");
 
 /*
 * 프로젝트 생성 기능
 * 입력인자: project 정보들
 */
-const postCreateProject = async (req, res) => {
+const createProject = async (req, res) => {
     const data = req.body;
     let result = {};
 
@@ -16,7 +15,6 @@ const postCreateProject = async (req, res) => {
         data.routes = JSON.stringify(data.routes);
 
         const createResult = await projectService.createProject(data);
-        console.log(createResult);
         if(createResult.isSuccess) {
             res.sendStatus(200);
         } else {
@@ -31,6 +29,42 @@ const postCreateProject = async (req, res) => {
     }
 }
 
+/*
+* 프로젝트 리스트 나열 기능
+* 입력인자: User ID
+*/
+const listProject = async (req, res) => {
+    const data = req.body;
+    let result = {};
+
+    try {
+        const listResult = await projectService.listProject(data);
+        if(listResult.isSuccess) {
+            result.projectList = listResult.projects;
+            res.status(200).send(result);
+        } else {
+            result.message = "프로젝트 리스트를 가져오는데 실패했습니다.";
+            res.status(400).send(result);
+        }
+    } catch(e) {
+        result.message = "예기치 못한 에러가 발생했습니다.";
+        res.status(400).send(result);
+    }
+}
+
+
+/*
+* 프로젝트 정보 제공 기능
+* 입력인자: project ID
+*/
+const getProject = async (req, res) => {
+
+}
+
+
+
 module.exports = {
-    postCreateProject: postCreateProject
+    postCreateProject: createProject,
+    getListProject: listProject,
+    getGetProject: getProject
 }

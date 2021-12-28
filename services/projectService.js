@@ -5,10 +5,6 @@ const { Project, Routes } = require('../models');
 const createProject = async (data) => {
     const result = {};
 
-
-
-    console.log("서비스가 구동되었습니다.");
-    console.log(data);
     try {
         data.projectId = data.createUser + '-' + data.projectName;
         await Project.create(data);
@@ -22,11 +18,30 @@ const createProject = async (data) => {
         result.isSuccess = false;
         result.message = "예기치 못한 에러가 발생했습니다.";
     }
+    return result;
+}
 
+/* List Project Function */
+const listProject = async (data) => {
+    const result = {};
+
+    try {
+        result.projects = await Project.findAll({
+            where: {
+                createUser: data.userId
+            }
+        })
+        result.isSuccess = true;
+    } catch(e) {
+        console.log(e);
+        result.isSuccess = false;
+        result.message = "예기치 못한 에러가 발생했습니다.";
+    }
     return result;
 }
 
 
 module.exports = {
-    createProject: createProject
+    createProject: createProject,
+    listProject: listProject
 }
