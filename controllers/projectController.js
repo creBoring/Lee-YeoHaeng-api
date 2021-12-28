@@ -34,7 +34,7 @@ const createProject = async (req, res) => {
 * 입력인자: User ID
 */
 const listProject = async (req, res) => {
-    const data = req.body;
+    const data = req.query;
     let result = {};
 
     try {
@@ -58,7 +58,23 @@ const listProject = async (req, res) => {
 * 입력인자: project ID
 */
 const getProject = async (req, res) => {
+    const data = req.query;
+    let result = {};
 
+    try {
+        const getResult = await projectService.getProject(data);
+        console.log(getResult);
+        if(getResult.isSuccess) {
+            result.project = getResult.project;
+            res.status(200).send(result);
+        } else {
+            result.message = "프로젝트 정보를 가져오는데 실패했습니다.";
+            res.status(400).send(result);
+        }
+    } catch(e) {
+        result.message = "예기치 못한 에러가 발생했습니다.";
+        res.status(400).send(result);
+    }
 }
 
 

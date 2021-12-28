@@ -21,6 +21,7 @@ const createProject = async (data) => {
     return result;
 }
 
+
 /* List Project Function */
 const listProject = async (data) => {
     const result = {};
@@ -30,7 +31,27 @@ const listProject = async (data) => {
             where: {
                 createUser: data.userId
             }
-        })
+        });
+        result.isSuccess = true;
+    } catch(e) {
+        console.log(e);
+        result.isSuccess = false;
+        result.message = "예기치 못한 에러가 발생했습니다.";
+    }
+    return result;
+}
+
+
+/* Get Project Function */
+const getProject = async (data) => {
+    const result = {};
+
+    try {
+        result.project = await Project.findOne({
+            where: {
+                projectId: data.projectId
+            }
+        });
         result.isSuccess = true;
     } catch(e) {
         console.log(e);
@@ -43,5 +64,6 @@ const listProject = async (data) => {
 
 module.exports = {
     createProject: createProject,
-    listProject: listProject
+    listProject: listProject,
+    getProject: getProject
 }
